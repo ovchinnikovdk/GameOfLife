@@ -22,34 +22,43 @@ public class SimpleGameOfLife implements GameOfLife {
         if (field == null) {
             return null;
         }
+
         for (int step = 0; step < m; step++) {
+            //System.out.println("Step:" + step);
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     int liveSum = 0;
                     for (int k = 0; k < 3; k++) {
                         for (int l = 0; l < 3; l++) {
-                            if (k != 1 && l != 1) {
+                            if (k != 1 || l != 1) {
+                                //System.out.print(((i + k - 1) % n + n) % n + "," + ((j + l - 1) % n + n) % n + ";");
                                 int fieldValue = field[((i + k - 1) % n + n) % n][((j + l - 1) % n + n) % n];
-                                if (fieldValue == 1 || fieldValue == 3) {
+                                if (fieldValue == 1 || fieldValue == 2 || fieldValue == 4) {
                                     liveSum++;
                                 }
                             }
                         }
                     }
+                    //System.out.println("liveSum[" + i + "][" + j + "] = " + liveSum);
                     if (liveSum == 2 && field[i][j] == 1) {
-                        field[i][j] = 3;
-                    } else if (liveSum == 3 && field[i][j] == 0) {
                         field[i][j] = 2;
+                    } else if (liveSum == 3 && field[i][j] == 0) {
+                        field[i][j] = 3;
                     } else if (liveSum > 3 || liveSum < 2) {
-                        field[i][j] = 0;
+                        if (field[i][j] == 1) {
+                            field[i][j] = 4;
+                        }
                     }
                 }
             }
 
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (field[i][j] == 2 || field[i][j] == 3) {
+                    if (field[i][j] == 3 || field[i][j] == 2) {
                         field[i][j] = 1;
+                    }
+                    else {
+                        field[i][j] = 0;
                     }
                 }
             }
@@ -62,6 +71,9 @@ public class SimpleGameOfLife implements GameOfLife {
             for (int j = 0; j < n; j++) {
                 builder.append(String.valueOf(field[i][j]));
             }
+            //for (int k = 0; k < n; k++)
+            //    System.out.print(field[i][k]);
+            //System.out.println();
             result.add(builder.toString());
         }
         return result;
@@ -71,7 +83,7 @@ public class SimpleGameOfLife implements GameOfLife {
         List<String> lines = new ArrayList<String>();
         Scanner scanner = null;
         try {
-            scanner = new Scanner(new File(inputFile));
+            scanner = new Scanner(new File("src/main/resources/" +inputFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -88,6 +100,7 @@ public class SimpleGameOfLife implements GameOfLife {
             while (scanner.hasNextLine()) {
                 lines.add(scanner.nextLine());
             }
+            scanner.close();
         }
         byte[][] result = new byte[n][n];
         for (int i = 0; i < lines.size(); i++) {

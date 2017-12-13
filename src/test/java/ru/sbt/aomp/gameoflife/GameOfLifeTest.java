@@ -7,6 +7,10 @@ import ru.sbt.aomp.gameoflife.simple_implementation.SimpleGameOfLife;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,13 +35,14 @@ public class GameOfLifeTest {
 
     private void testOneGame(String inputFile, String expectedOutputFile) throws FileNotFoundException {
         List<String> result = gameOfLife.play(inputFile);
-        assertEquals(readFile(expectedOutputFile), result);
+        List<String> expected = readFile(expectedOutputFile);
+        assertEquals(expected, result);
     }
+
 
     private static List<String> readFile(String fileName) throws FileNotFoundException {
         ArrayList<String> lines = new ArrayList<String>();
-
-        Scanner scan = new Scanner(new File(fileName));
+        Scanner scan = new Scanner(new File("src/main/resources/" + fileName));
         while (scan.hasNextLine()) {
             lines.add(scan.nextLine());
         }
