@@ -1,16 +1,10 @@
 package ru.sbt.aomp.gameoflife;
 
-import org.junit.Before;
 import org.junit.Test;
-import ru.sbt.aomp.gameoflife.GameOfLife;
-import ru.sbt.aomp.gameoflife.simple_implementation.SimpleGameOfLife;
+import ru.sbt.aomp.gameoflife.simple.SimpleGameOfLife;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -20,20 +14,15 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by Mintas on 12/10/2017.
  */
-public class GameOfLifeTest {
-    GameOfLife gameOfLife;
-
-    @Before
-    public void init(){
-        gameOfLife = new SimpleGameOfLife();
-    }
+public class SimpleGameOfLifeTest {
 
     @Test
-    public void testGame() throws Exception {
-        testOneGame("input.txt", "output.txt");
+    public void testSimpleImplementationGameOfLife() throws Exception {
+        GameOfLife gameOfLife = new SimpleGameOfLife();
+        testOneGame(gameOfLife, "src/test/resources/input100.txt", "src/test/resources/output100.txt");
     }
 
-    private void testOneGame(String inputFile, String expectedOutputFile) throws FileNotFoundException {
+    private void testOneGame(GameOfLife gameOfLife, String inputFile, String expectedOutputFile) throws FileNotFoundException {
         List<String> result = gameOfLife.play(inputFile);
         List<String> expected = readFile(expectedOutputFile);
         assertEquals(expected, result);
@@ -42,7 +31,7 @@ public class GameOfLifeTest {
 
     private static List<String> readFile(String fileName) throws FileNotFoundException {
         ArrayList<String> lines = new ArrayList<String>();
-        Scanner scan = new Scanner(new File("src/main/resources/" + fileName));
+        Scanner scan = new Scanner(new File(fileName));
         while (scan.hasNextLine()) {
             lines.add(scan.nextLine());
         }
