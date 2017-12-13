@@ -1,41 +1,42 @@
-package ru.sbt.aomp.gameoflife.complex;
+package ru.sbt.gameoflife.concurrent;
 
 /**
  * Created by SBT-Ovchinnikov-DK on 13.12.2017.
  */
-public class GameExecutorForV1 implements Runnable {
+public class CellExecutor implements Runnable {
     private byte[][] oldField;
     private byte[][] newField;
     private int n;
-    private int blockSize;
+    private int blockNum;
     private int execCellX;
     private int execCellY;
 
 
-    public GameExecutorForV1(byte[][] oldField, byte[][] newField, int fieldSize, int blockSize, int x, int y) {
+    public CellExecutor(byte[][] oldField, byte[][] newField, int fieldSize, int blockNum, int x, int y) {
         this.oldField = oldField;
         this.newField = newField;
         this.n = fieldSize;
-        this.blockSize = blockSize;
+        this.blockNum = blockNum;
         this.execCellX = x;
         this.execCellY = y;
     }
 
     @Override
     public void run() {
-        int x_start = n / blockSize * execCellX;
-        int x_end = n / blockSize * (execCellX + 1);
-        int y_start = n / blockSize * execCellY;
-        int y_end = n / blockSize * (execCellY + 1);
-
+        int x_start = n / blockNum * execCellX;
+        int x_end = n / blockNum * (execCellX + 1) + (n % blockNum > 0 && (execCellX + 1) == blockNum ? n % blockNum : 0);
+        int y_start = n / blockNum * execCellY;
+        int y_end = n / blockNum * (execCellY + 1) + (n % blockNum > 0 && (execCellY + 1) == blockNum ? n % blockNum : 0);
         for (int i = x_start; i < x_end; i++) {
             for (int j = y_start; j < y_end; j++) {
                 int liveSum = 0;
                 for (int k = 0; k < 3; k++) {
                     for (int l = 0; l < 3; l++) {
-                        int fieldValue = oldField[((i + k - 1) % n + n) % n][((j + l - 1) % n + n) % n];
-                        if (fieldValue == 1) {
-                            liveSum++;
+                        if (k != 1 || l != 1) {
+                            int fieldValue = oldField[((i + k - 1) % n + n) % n][((j + l - 1) % n + n) % n];
+                            if (fieldValue == 1) {
+                                liveSum++;
+                            }
                         }
                     }
                 }

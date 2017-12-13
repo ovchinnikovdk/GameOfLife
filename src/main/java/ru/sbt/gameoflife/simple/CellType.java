@@ -1,4 +1,4 @@
-package ru.sbt.aomp.gameoflife.simple;
+package ru.sbt.gameoflife.simple;
 
 /**
  * Created by SBT-Ovchinnikov-DK on 13.12.2017.

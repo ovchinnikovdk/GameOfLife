@@ -1,4 +1,4 @@
-package ru.sbt.aomp.gameoflife;
+package ru.sbt.gameoflife;
 
 import java.util.List;
 

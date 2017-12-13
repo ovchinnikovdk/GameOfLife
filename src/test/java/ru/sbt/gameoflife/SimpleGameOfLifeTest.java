@@ -1,7 +1,7 @@
-package ru.sbt.aomp.gameoflife;
+package ru.sbt.gameoflife;
 
 import org.junit.Test;
-import ru.sbt.aomp.gameoflife.simple.SimpleGameOfLife;
+import ru.sbt.gameoflife.simple.SimpleGameOfLife;
 
 import java.io.File;
 import java.io.FileNotFoundException;

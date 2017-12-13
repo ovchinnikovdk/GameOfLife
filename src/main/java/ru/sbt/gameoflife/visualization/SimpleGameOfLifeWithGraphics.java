@@ -1,6 +1,6 @@
-package ru.sbt.aomp.gameoflife.visualization;
+package ru.sbt.gameoflife.visualization;
 
-import ru.sbt.aomp.gameoflife.simple.SimpleGameOfLife;
+import ru.sbt.gameoflife.simple.SimpleGameOfLife;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;

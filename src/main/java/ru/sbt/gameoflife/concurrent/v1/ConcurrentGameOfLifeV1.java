@@ -1,6 +1,7 @@
-package ru.sbt.aomp.gameoflife.complex;
+package ru.sbt.gameoflife.concurrent.v1;
 
-import ru.sbt.aomp.gameoflife.GameOfLife;
+import ru.sbt.gameoflife.GameOfLife;
+import ru.sbt.gameoflife.concurrent.CellExecutor;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +12,7 @@ import java.util.Scanner;
 /**
  * Created by SBT-Ovchinnikov-DK on 13.12.2017.
  */
-public class MultithreadingGameOfLifeV1 implements GameOfLife {
+public class ConcurrentGameOfLifeV1 implements GameOfLife {
     private int gridSize;
     private byte[][] firstField;
     private byte[][] secondField;
@@ -19,8 +20,8 @@ public class MultithreadingGameOfLifeV1 implements GameOfLife {
     private int m;
     private int step;
     
-    public MultithreadingGameOfLifeV1(int size) {
-        this.gridSize = size;
+    public ConcurrentGameOfLifeV1(int gridSize) {
+        this.gridSize = gridSize;
         this.step = 0;
     }
     
@@ -37,7 +38,7 @@ public class MultithreadingGameOfLifeV1 implements GameOfLife {
                 lastField = doStep(firstField, secondField);
             }
             else {
-                doStep(secondField, firstField);
+                lastField = doStep(secondField, firstField);
             }
         }
         return byteArrayToString(lastField);
@@ -47,7 +48,7 @@ public class MultithreadingGameOfLifeV1 implements GameOfLife {
         Thread[][] executors = new Thread[gridSize][gridSize];
         for (int i = 0; i < gridSize; i++) {
             for (int j = 0; j < gridSize; j++) {
-                executors[i][j] = new Thread(new GameExecutorForV1(oldField, newField, n, gridSize, i, j));
+                executors[i][j] = new Thread(new CellExecutor(oldField, newField, n, gridSize, i, j));
                 executors[i][j].start();
             }
         }

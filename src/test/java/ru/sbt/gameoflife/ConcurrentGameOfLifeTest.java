@@ -1,8 +1,7 @@
-package ru.sbt.aomp.gameoflife;
+package ru.sbt.gameoflife;
 
 import org.junit.Test;
-import ru.sbt.aomp.gameoflife.complex.MultithreadingGameOfLifeV1;
-import ru.sbt.aomp.gameoflife.simple.SimpleGameOfLife;
+import ru.sbt.gameoflife.concurrent.v2.ConcurrentGameOfLife;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,11 +14,11 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by SBT-Ovchinnikov-DK on 13.12.2017.
  */
-public class ComplexGameOfLifeTest {
+public class ConcurrentGameOfLifeTest {
     @Test
-    public void testSimpleImplementationGameOfLife() throws Exception {
-        GameOfLife gameOfLife = new MultithreadingGameOfLifeV1(4);
-        testOneGame(gameOfLife, "src/test/resources/input100.txt", "src/test/resources/output100.txt");
+    public void testConcurrentImplementationGameOfLife() throws Exception {
+        GameOfLife gameOfLife = new ConcurrentGameOfLife(16, 4);
+        testOneGame(gameOfLife, "src/test/resources/input1000.txt", "src/test/resources/output1000.txt");
     }
 
     private void testOneGame(GameOfLife gameOfLife, String inputFile, String expectedOutputFile) throws FileNotFoundException {
