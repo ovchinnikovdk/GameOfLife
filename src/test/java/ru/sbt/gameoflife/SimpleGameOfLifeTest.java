@@ -17,9 +17,26 @@ import static org.junit.Assert.assertEquals;
 public class SimpleGameOfLifeTest {
 
     @Test
-    public void testSimpleImplementationGameOfLife() throws Exception {
+    public void testSimpleImplementationGameOfLife10() throws Exception {
+        GameOfLife gameOfLife = new SimpleGameOfLife();
+        testOneGame(gameOfLife, "src/test/resources/input.txt", "src/test/resources/output.txt");
+    }
+
+    @Test
+    public void testSimpleImplementationGameOfLife100() throws Exception {
         GameOfLife gameOfLife = new SimpleGameOfLife();
         testOneGame(gameOfLife, "src/test/resources/input100.txt", "src/test/resources/output100.txt");
+    }
+
+    @Test
+    public void testSimpleImplementationGameOfLife1000() throws Exception {
+        GameOfLife gameOfLife = new SimpleGameOfLife();
+        testOneGame(gameOfLife, "src/test/resources/input1000.txt", "src/test/resources/output1000.txt");
+    }
+
+    public void testSimpleImplementationGameOfLife10000() throws Exception {
+        GameOfLife gameOfLife = new SimpleGameOfLife();
+        testOneGame(gameOfLife, "src/test/resources/input1000.txt", "src/test/resources/output1000.txt");
     }
 
     private void testOneGame(GameOfLife gameOfLife, String inputFile, String expectedOutputFile) throws FileNotFoundException {

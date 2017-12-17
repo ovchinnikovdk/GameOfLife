@@ -18,7 +18,24 @@ public class ConcurrentGameOfLifeTest {
     @Test
     public void testConcurrentImplementationGameOfLife() throws Exception {
         GameOfLife gameOfLife = new ConcurrentGameOfLife(16, 4);
+        testOneGame(gameOfLife, "src/test/resources/input.txt", "src/test/resources/output.txt");
+    }
+
+    @Test
+    public void testConcurrentImplementationGameOfLife100() throws Exception {
+        GameOfLife gameOfLife = new ConcurrentGameOfLife(16, 4);
+        testOneGame(gameOfLife, "src/test/resources/input100.txt", "src/test/resources/output100.txt");
+    }
+
+    @Test
+    public void testConcurrentImplementationGameOfLife1000() throws Exception {
+        GameOfLife gameOfLife = new ConcurrentGameOfLife(16, 4);
         testOneGame(gameOfLife, "src/test/resources/input1000.txt", "src/test/resources/output1000.txt");
+    }
+
+    public void testConcurrentImplementationGameOfLife10000() throws Exception {
+        GameOfLife gameOfLife = new ConcurrentGameOfLife(16, 4);
+        testOneGame(gameOfLife, "src/test/resources/input10000.txt", "src/test/resources/output10000.txt");
     }
 
     private void testOneGame(GameOfLife gameOfLife, String inputFile, String expectedOutputFile) throws FileNotFoundException {
